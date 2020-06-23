@@ -53,6 +53,16 @@ def roll_string(input):
             " + ".join(data[2]),
             sum(data[3])
             )
+def generate_character():
+    stats = []
+    for i in range(0,6):
+        stat = roll_dice(4,6)[1]
+        stat.remove(min(stat))
+        stat = sum(stat)
+        stats.append(stat)
+    stats.sort()
+    print(stats)
+    return stats
 
 def main():
     parser = argparse.ArgumentParser(description = __doc__)
@@ -65,9 +75,12 @@ def main():
         roll = input()
         if roll.upper() == "EXIT" or roll.upper() == "QUIT":
             break
-        result = roll_string(roll)
-        die_rolls= result[1][0] if len(result[1])==1 else result[1]
-        print(f"{result[0]}\t\t\t\t\t\t\t\t\t{die_rolls} {result[2]} {result[3]}")
+        elif roll.upper() == "GEN":
+            generate_character()
+        else:
+            result = roll_string(roll)
+            die_rolls= result[1][0] if len(result[1])==1 else result[1]
+            print(f"{result[0]}\t\t\t\t\t\t\t\t\t{die_rolls} {result[2]} {result[3]}")
 
 if __name__ == "__main__":
     main()
